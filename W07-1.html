@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>마소에셋 사내 실적 — 월간 실적 표</title>
+<!-- 실습용 가상 자료 — 마소그룹과 계열사 · 상품 · 수치 · 고객은 실습을 위해 만든 가상 자료입니다(공개 사이트 · 쇼핑몰 · 공공 데이터 · 제품 화면은 실제). 페이지 W07-1 · 실습 웹 환경 공통 틀 v1.1(M09) -->
+<style>
+:root{--c:#1d3b2a;--a:#c9a227;--ink:#1d2433;--mute:#5b6475;--line:#d9dee7;--bg:#f6f7fa}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Malgun Gothic","맑은 고딕","Noto Sans KR",sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.6}
+.vband{background:#ffcf33;color:#14213d;font-size:13px;font-weight:700;padding:6px 20px;display:flex;justify-content:space-between;gap:12px}
+header.site{background:var(--c);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+header.site .brand{font-size:19px;font-weight:800;letter-spacing:-.3px}
+header.site nav{display:flex;gap:4px;flex-wrap:wrap}
+header.site nav a{color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-size:14px;opacity:.85}
+header.site nav a.on,header.site nav a:hover{background:rgba(255,255,255,.16);opacity:1}
+header.site .login{margin-left:auto;font-size:13px;opacity:.8;border:1px solid rgba(255,255,255,.5);border-radius:6px;padding:4px 10px;background:transparent;color:#fff;cursor:not-allowed}
+main{max-width:1000px;margin:24px auto;padding:0 18px}
+section.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin-bottom:18px}
+h1{font-size:22px;margin:0 0 6px}h2{font-size:17px;margin:0 0 12px}
+.sub{color:var(--mute);font-size:14px;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:8px 8px;text-align:left;vertical-align:top}
+th{background:#eef1f6;font-weight:700}
+td.num,th.num{text-align:right}
+a{color:var(--a)}
+.menus{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.menu{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff;text-decoration:none;color:inherit}
+.menu b{color:var(--a);display:block;margin-bottom:4px}.menu span{color:var(--mute);font-size:13px}
+.menu.off{opacity:.55}
+.btn{display:inline-block;background:var(--a);color:#fff;border:0;border-radius:6px;padding:9px 16px;font-size:14px;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn.sm{padding:4px 10px;font-size:13px}
+.ghost{background:#fff;color:var(--a);border:1px solid var(--a)}
+.btn[disabled]{background:#c9ced8;color:#fff;cursor:not-allowed;border:0}
+.vmsg{margin-top:12px;font-weight:700;color:#0f7b45;min-height:1.4em}
+.vmsg.warn{color:#b42318}
+.view{display:none}.view.on{display:block}
+.plan{border-left:4px solid var(--a);background:#fff;padding:12px 16px;border-radius:6px}
+form.f{display:grid;grid-template-columns:150px 1fr;gap:10px 14px;align-items:center;max-width:640px}
+form.f label{font-weight:700;font-size:14px}
+form.f input,form.f select,form.f textarea{font:inherit;padding:7px 9px;border:1px solid #b9c0cc;border-radius:6px;width:100%}
+form.f .act{grid-column:2}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tabs a{padding:6px 12px;border:1px solid var(--line);border-radius:6px;text-decoration:none;background:#fff}
+.ok{color:#0f7b45;font-weight:700}.bad{color:#b42318;font-weight:700}.muted{color:var(--mute)}
+.confirm{margin-top:8px;padding:10px 12px;border:1px solid #f0b4ae;background:#fff5f4;border-radius:8px;display:none}
+.confirm.on{display:block}
+.kv td:first-child{width:170px;font-weight:700;background:#f7f8fb}
+.note{font-size:13px;color:var(--mute)}
+.pill{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;background:#eef1f6;margin-left:6px}
+footer{max-width:1000px;margin:0 auto 28px;padding:0 18px;color:var(--mute);font-size:12.5px}
+@media (max-width:640px){.menus{grid-template-columns:1fr}header.site{gap:12px}form.f{grid-template-columns:1fr}form.f .act{grid-column:1}}
+</style></head>
+<body>
+<div class="vband"><span>실습용 가상 페이지 · W07-1</span><span>실제 회사 · 사람 · 수치가 아닙니다</span></div>
+<header class="site"><span class="brand">마소에셋 사내 실적</span><nav><a href="W07-1.html" class="on">월간 실적</a></nav>
+<button class="login" data-off="실습에서는 로그인하지 않습니다. 로그인은 사람이 하는 일입니다.">로그인</button></header>
+<main><div id="vmsg-global" class="vmsg"></div>
+<section class="card"><h1>월간 실적 표 — 2026-10(가상)</h1><div class="sub">마소에셋(가상)이 관리하는 자산 6개의 최근 2개월 임대 실적입니다. 값은 바꾸지 않습니다.</div></section>
+<section class="card"><h2>자산별 실적 — 2026-09 · 2026-10</h2><table id="performance"><thead><tr><th>자산</th><th>월</th><th class=num>임대율(%)</th><th class=num>월 임대료(만 원)</th><th class=num>공실 면적(㎡)</th></tr></thead><tbody><tr><td>강남 오피스 A</td><td>2026-09</td><td class=num>96.5</td><td class=num>18,450</td><td class=num>210</td></tr><tr><td>강남 오피스 A</td><td>2026-10</td><td class=num>97.2</td><td class=num>18,620</td><td class=num>150</td></tr><tr><td>판교 오피스 B</td><td>2026-09</td><td class=num>92.1</td><td class=num>12,380</td><td class=num>520</td></tr><tr><td>판교 오피스 B</td><td>2026-10</td><td class=num>93.4</td><td class=num>12,560</td><td class=num>430</td></tr><tr><td>여의도 오피스 C</td><td>2026-09</td><td class=num>98.0</td><td class=num>21,300</td><td class=num>95</td></tr><tr><td>여의도 오피스 C</td><td>2026-10</td><td class=num>98.0</td><td class=num>21,300</td><td class=num>95</td></tr><tr><td>성수 지식산업센터 D</td><td>2026-09</td><td class=num>88.4</td><td class=num>7,650</td><td class=num>880</td></tr><tr><td>성수 지식산업센터 D</td><td>2026-10</td><td class=num>89.9</td><td class=num>7,820</td><td class=num>760</td></tr><tr><td>부산 물류센터 E</td><td>2026-09</td><td class=num>99.1</td><td class=num>9,840</td><td class=num>60</td></tr><tr><td>부산 물류센터 E</td><td>2026-10</td><td class=num>99.3</td><td class=num>9,870</td><td class=num>45</td></tr><tr><td>대전 리테일 F</td><td>2026-09</td><td class=num>91.7</td><td class=num>5,420</td><td class=num>410</td></tr><tr><td>대전 리테일 F</td><td>2026-10</td><td class=num>86.2</td><td class=num>5,080</td><td class=num>690</td></tr></tbody></table></section>
+<section class="card"><h2>전월 대비(2026-09 → 2026-10)</h2><table id="mom"><thead><tr><th>자산</th><th class=num>월 임대료 증감(만 원)</th><th class=num>증감률(%)</th><th class=num>임대율 증감(%p)</th></tr></thead><tbody><tr><td>강남 오피스 A</td><td class=num>+170</td><td class=num>+0.9</td><td class=num>+0.7</td></tr><tr><td>판교 오피스 B</td><td class=num>+180</td><td class=num>+1.5</td><td class=num>+1.3</td></tr><tr><td>여의도 오피스 C</td><td class=num>+0</td><td class=num>+0.0</td><td class=num>+0.0</td></tr><tr><td>성수 지식산업센터 D</td><td class=num>+170</td><td class=num>+2.2</td><td class=num>+1.5</td></tr><tr><td>부산 물류센터 E</td><td class=num>+30</td><td class=num>+0.3</td><td class=num>+0.2</td></tr><tr><td>대전 리테일 F</td><td class=num>-340</td><td class=num>-6.3</td><td class=num>-5.5</td></tr></tbody></table><p class="note">증감률은 (이번 달 − 지난달) ÷ 지난달, 임대율은 %p 차이입니다.</p></section>
+</main>
+<footer>실습용 가상 자료 — 마소그룹과 계열사 · 상품 · 수치 · 고객은 실습을 위해 만든 가상 자료입니다(공개 사이트 · 쇼핑몰 · 공공 데이터 · 제품 화면은 실제). · © MASO CAMPUS 실습용 · W07-1</footer>
+<script>
+var S=(function(){var P='maso_aside_';return{get:function(k,d){try{var v=localStorage.getItem(P+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},
+  set:function(k,v){try{localStorage.setItem(P+k,JSON.stringify(v));return true;}catch(e){return false;}}};})();
+function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function msg(el,t,warn){if(!el)return;el.textContent=t;el.className='vmsg'+(warn?' warn':'');}
+function now(){var d=new Date();function p(n){return(n<10?'0':'')+n;}return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());}
+function today(){return now().slice(0,10);}
+function pad(n,w){n=String(n);while(n.length<w)n='0'+n;return n;}
+function askBox(box,text,onYes){box.innerHTML='<b>'+esc(text)+'</b> <button type="button" class="btn sm" data-yes>확정</button> <button type="button" class="btn sm ghost" data-no>취소</button>';
+  box.classList.add('on');box.querySelector('[data-yes]').onclick=function(){box.classList.remove('on');box.innerHTML='';onYes();};
+  box.querySelector('[data-no]').onclick=function(){box.classList.remove('on');box.innerHTML='';};}
+(function(){
+  function route(){var h=decodeURIComponent(location.hash.slice(1));var vs=document.querySelectorAll('.view');var any=false;
+    vs.forEach(function(v){var on=(v.id===h);v.classList.toggle('on',on);if(on)any=true;});
+    var home=document.getElementById('home');if(home)home.classList.toggle('on',!any);
+    var t=(!any&&h)?document.getElementById(h):null;
+    if(t){t.scrollIntoView();}else{window.scrollTo(0,0);}
+    document.dispatchEvent(new CustomEvent('vroute',{detail:h}));}
+  window.addEventListener('hashchange',route);route();
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();
+    msg(document.getElementById('vmsg-global'),'실습 웹 환경에서는 바깥 주소로 이동하지 않습니다.',true);});});
+  document.querySelectorAll('[data-off]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();
+    var m=b.getAttribute('data-msg-at');m=m?document.getElementById(m):document.getElementById('vmsg-global');msg(m,b.getAttribute('data-off'),true);});});
+  document.querySelectorAll('form[data-virtual]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();
+    var out=f.querySelector('.vmsg');var vals=[];var miss=false;
+    f.querySelectorAll('[name]').forEach(function(x){if(x.required&&!x.value)miss=true;vals.push(x.name+' '+(x.value||'—'));});
+    if(miss){msg(out,'꼭 넣어야 하는 칸이 비어 있습니다.',true);return;}
+    msg(out,(f.getAttribute('data-virtual')||'접수 완료(가상)')+' — '+vals.join(' · '));
+    document.dispatchEvent(new CustomEvent('vsubmit',{detail:{form:f.id,vals:vals}}));});});
+})();
+
+</script>
+</body></html>

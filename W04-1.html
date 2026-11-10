@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>마소리테일 고객 게시판 — 문의 목록</title>
+<!-- 실습용 가상 자료 — 마소그룹과 계열사 · 상품 · 수치 · 고객은 실습을 위해 만든 가상 자료입니다(공개 사이트 · 쇼핑몰 · 공공 데이터 · 제품 화면은 실제). 페이지 W04-1 · 실습 웹 환경 공통 틀 v1.1(M09) -->
+<style>
+:root{--c:#1f5f3a;--a:#2e9d5b;--ink:#1d2433;--mute:#5b6475;--line:#d9dee7;--bg:#f6f7fa}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Malgun Gothic","맑은 고딕","Noto Sans KR",sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.6}
+.vband{background:#ffcf33;color:#14213d;font-size:13px;font-weight:700;padding:6px 20px;display:flex;justify-content:space-between;gap:12px}
+header.site{background:var(--c);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+header.site .brand{font-size:19px;font-weight:800;letter-spacing:-.3px}
+header.site nav{display:flex;gap:4px;flex-wrap:wrap}
+header.site nav a{color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-size:14px;opacity:.85}
+header.site nav a.on,header.site nav a:hover{background:rgba(255,255,255,.16);opacity:1}
+header.site .login{margin-left:auto;font-size:13px;opacity:.8;border:1px solid rgba(255,255,255,.5);border-radius:6px;padding:4px 10px;background:transparent;color:#fff;cursor:not-allowed}
+main{max-width:1000px;margin:24px auto;padding:0 18px}
+section.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin-bottom:18px}
+h1{font-size:22px;margin:0 0 6px}h2{font-size:17px;margin:0 0 12px}
+.sub{color:var(--mute);font-size:14px;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:8px 8px;text-align:left;vertical-align:top}
+th{background:#eef1f6;font-weight:700}
+td.num,th.num{text-align:right}
+a{color:var(--a)}
+.menus{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.menu{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff;text-decoration:none;color:inherit}
+.menu b{color:var(--a);display:block;margin-bottom:4px}.menu span{color:var(--mute);font-size:13px}
+.menu.off{opacity:.55}
+.btn{display:inline-block;background:var(--a);color:#fff;border:0;border-radius:6px;padding:9px 16px;font-size:14px;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn.sm{padding:4px 10px;font-size:13px}
+.ghost{background:#fff;color:var(--a);border:1px solid var(--a)}
+.btn[disabled]{background:#c9ced8;color:#fff;cursor:not-allowed;border:0}
+.vmsg{margin-top:12px;font-weight:700;color:#0f7b45;min-height:1.4em}
+.vmsg.warn{color:#b42318}
+.view{display:none}.view.on{display:block}
+.plan{border-left:4px solid var(--a);background:#fff;padding:12px 16px;border-radius:6px}
+form.f{display:grid;grid-template-columns:150px 1fr;gap:10px 14px;align-items:center;max-width:640px}
+form.f label{font-weight:700;font-size:14px}
+form.f input,form.f select,form.f textarea{font:inherit;padding:7px 9px;border:1px solid #b9c0cc;border-radius:6px;width:100%}
+form.f .act{grid-column:2}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tabs a{padding:6px 12px;border:1px solid var(--line);border-radius:6px;text-decoration:none;background:#fff}
+.ok{color:#0f7b45;font-weight:700}.bad{color:#b42318;font-weight:700}.muted{color:var(--mute)}
+.confirm{margin-top:8px;padding:10px 12px;border:1px solid #f0b4ae;background:#fff5f4;border-radius:8px;display:none}
+.confirm.on{display:block}
+.kv td:first-child{width:170px;font-weight:700;background:#f7f8fb}
+.note{font-size:13px;color:var(--mute)}
+.pill{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;background:#eef1f6;margin-left:6px}
+footer{max-width:1000px;margin:0 auto 28px;padding:0 18px;color:var(--mute);font-size:12.5px}
+@media (max-width:640px){.menus{grid-template-columns:1fr}header.site{gap:12px}form.f{grid-template-columns:1fr}form.f .act{grid-column:1}}
+</style></head>
+<body>
+<div class="vband"><span>실습용 가상 페이지 · W04-1</span><span>실제 회사 · 사람 · 수치가 아닙니다</span></div>
+<header class="site"><span class="brand">마소리테일 고객 게시판</span><nav><a href="W04-1.html" class="on">문의 목록</a></nav>
+<button class="login" data-off="실습에서는 로그인하지 않습니다. 로그인은 사람이 하는 일입니다.">로그인</button></header>
+<main><div id="vmsg-global" class="vmsg"></div>
+<div class="view on" id="home"><section class="card"><h1>문의 목록</h1><div class="sub">마소마켓 고객 문의 게시판입니다(가상). 제목을 누르면 상세 화면이 열립니다. 답변 등록은 실습에서 쓰지 않아 비활성입니다.</div><p class="note">전체 30건</p></section>
+<section class="card"><table id="inquiries"><thead><tr><th>문의 ID</th><th>날짜</th><th>채널</th><th>제목</th></tr></thead><tbody><tr><td>Q-001</td><td>2026-11-02</td><td>앱</td><td><a href="#Q-001">주문한 물건이 아직 안 왔어요</a></td></tr><tr><td>Q-002</td><td>2026-11-02</td><td>웹</td><td><a href="#Q-002">사이즈 교환하고 싶어요</a></td></tr><tr><td>Q-003</td><td>2026-11-02</td><td>앱</td><td><a href="#Q-003">결제가 두 번 됐어요</a></td></tr><tr><td>Q-004</td><td>2026-11-03</td><td>웹</td><td><a href="#Q-004">식기세척기 사용 가능한가요</a></td></tr><tr><td>Q-005</td><td>2026-11-03</td><td>앱</td><td><a href="#Q-005">비밀번호를 잊었어요</a></td></tr><tr><td>Q-006</td><td>2026-11-03</td><td>웹</td><td><a href="#Q-006">쿠폰이 적용되지 않아요</a></td></tr><tr><td>Q-007</td><td>2026-11-04</td><td>웹</td><td><a href="#Q-007">배송 조회가 멈춰 있어요</a></td></tr><tr><td>Q-008</td><td>2026-11-04</td><td>앱</td><td><a href="#Q-008">반품 신청 방법</a></td></tr><tr><td>Q-009</td><td>2026-11-04</td><td>웹</td><td><a href="#Q-009">환불은 언제 들어오나요</a></td></tr><tr><td>Q-010</td><td>2026-11-05</td><td>앱</td><td><a href="#Q-010">용량이 어떻게 되나요</a></td></tr><tr><td>Q-011</td><td>2026-11-05</td><td>웹</td><td><a href="#Q-011">회원 탈퇴하고 싶어요</a></td></tr><tr><td>Q-012</td><td>2026-11-05</td><td>앱</td><td><a href="#Q-012">이벤트 당첨 확인</a></td></tr><tr><td>Q-013</td><td>2026-11-06</td><td>앱</td><td><a href="#Q-013">출고 예정일이 지났습니다</a></td></tr><tr><td>Q-014</td><td>2026-11-06</td><td>웹</td><td><a href="#Q-014">포장을 뜯었는데 반품되나요</a></td></tr><tr><td>Q-015</td><td>2026-11-06</td><td>앱</td><td><a href="#Q-015">무통장 입금 기한</a></td></tr><tr><td>Q-016</td><td>2026-11-07</td><td>웹</td><td><a href="#Q-016">재입고 예정이 있나요</a></td></tr><tr><td>Q-017</td><td>2026-11-07</td><td>앱</td><td><a href="#Q-017">주소를 바꾸고 싶어요</a></td></tr><tr><td>Q-018</td><td>2026-11-07</td><td>웹</td><td><a href="#Q-018">쿠폰 유효기간</a></td></tr><tr><td>Q-019</td><td>2026-11-08</td><td>웹</td><td><a href="#Q-019">내일까지 꼭 받아야 해요</a></td></tr><tr><td>Q-020</td><td>2026-11-08</td><td>앱</td><td><a href="#Q-020">불량품이 왔어요</a></td></tr><tr><td>Q-021</td><td>2026-11-08</td><td>웹</td><td><a href="#Q-021">적립금으로 결제가 안 돼요</a></td></tr><tr><td>Q-022</td><td>2026-11-09</td><td>앱</td><td><a href="#Q-022">구성품 문의</a></td></tr><tr><td>Q-023</td><td>2026-11-09</td><td>웹</td><td><a href="#Q-023">아이디가 두 개예요</a></td></tr><tr><td>Q-024</td><td>2026-11-09</td><td>앱</td><td><a href="#Q-024">첫 구매 쿠폰이 없어요</a></td></tr><tr><td>Q-025</td><td>2026-11-10</td><td>앱</td><td><a href="#Q-025">부분 배송인지 궁금해요</a></td></tr><tr><td>Q-026</td><td>2026-11-10</td><td>웹</td><td><a href="#Q-026">반품했는데 환불이 안 됐어요</a></td></tr><tr><td>Q-027</td><td>2026-11-10</td><td>앱</td><td><a href="#Q-027">피해를 보상해 주세요</a></td></tr><tr><td>Q-028</td><td>2026-11-11</td><td>웹</td><td><a href="#Q-028">원산지 표시</a></td></tr><tr><td>Q-029</td><td>2026-11-11</td><td>앱</td><td><a href="#Q-029">로그인하면 바로 튕겨요</a></td></tr><tr><td>Q-030</td><td>2026-11-11</td><td>웹</td><td><a href="#Q-030">적립 이벤트 포인트</a></td></tr></tbody></table></section></div>
+<section class="card view" id="Q-001"><div class="sub">문의 ID Q-001 · 2026-11-02 · 채널 앱</div><h1>주문한 물건이 아직 안 왔어요</h1><p>10월 26일에 주문한 수건 세트가 일주일째 배송 준비 중으로 나옵니다. 언제 받을 수 있는지 알려 주세요.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-002"><div class="sub">문의 ID Q-002 · 2026-11-02 · 채널 웹</div><h1>사이즈 교환하고 싶어요</h1><p>슬리퍼가 작아서 한 치수 큰 것으로 바꾸고 싶습니다. 어떻게 신청하나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-003"><div class="sub">문의 ID Q-003 · 2026-11-02 · 채널 앱</div><h1>결제가 두 번 됐어요</h1><p>같은 주문이 카드에서 두 번 결제됐다는 문자가 왔습니다. 하나 취소해 주세요.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-004"><div class="sub">문의 ID Q-004 · 2026-11-03 · 채널 웹</div><h1>식기세척기 사용 가능한가요</h1><p>유리 밀폐 용기 세트를 식기세척기에 넣어도 되는지 궁금합니다.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-005"><div class="sub">문의 ID Q-005 · 2026-11-03 · 채널 앱</div><h1>비밀번호를 잊었어요</h1><p>비밀번호 찾기를 해도 인증 문자가 오지 않습니다.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-006"><div class="sub">문의 ID Q-006 · 2026-11-03 · 채널 웹</div><h1>쿠폰이 적용되지 않아요</h1><p>가을 할인 쿠폰을 받았는데 결제할 때 적용 버튼이 눌리지 않습니다.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-007"><div class="sub">문의 ID Q-007 · 2026-11-04 · 채널 웹</div><h1>배송 조회가 멈춰 있어요</h1><p>배송 조회가 이틀째 &#x27;집하 완료&#x27;에서 바뀌지 않습니다. 택배사에 물어봐야 하나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-008"><div class="sub">문의 ID Q-008 · 2026-11-04 · 채널 앱</div><h1>반품 신청 방법</h1><p>단순 변심으로 반품하려고 합니다. 반품 배송비는 얼마인가요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-009"><div class="sub">문의 ID Q-009 · 2026-11-04 · 채널 웹</div><h1>환불은 언제 들어오나요</h1><p>주문 취소 뒤 환불 예정이라고 나오는데 카드사에 언제 반영되나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-010"><div class="sub">문의 ID Q-010 · 2026-11-05 · 채널 앱</div><h1>용량이 어떻게 되나요</h1><p>상품 상세에 용량이 안 보입니다. 큰 통의 용량을 알려 주세요.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-011"><div class="sub">문의 ID Q-011 · 2026-11-05 · 채널 웹</div><h1>회원 탈퇴하고 싶어요</h1><p>더 이상 쓰지 않아 탈퇴하려고 합니다. 남은 적립금은 어떻게 되나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-012"><div class="sub">문의 ID Q-012 · 2026-11-05 · 채널 앱</div><h1>이벤트 당첨 확인</h1><p>11월 출석 이벤트 당첨자 발표는 어디서 보나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-013"><div class="sub">문의 ID Q-013 · 2026-11-06 · 채널 앱</div><h1>출고 예정일이 지났습니다</h1><p>상품 상세에는 11월 5일 출고라고 되어 있었는데 아직 출고되지 않았습니다.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-014"><div class="sub">문의 ID Q-014 · 2026-11-06 · 채널 웹</div><h1>포장을 뜯었는데 반품되나요</h1><p>상자를 열어 보기만 했고 사용은 안 했습니다. 이 경우에도 반품할 수 있나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-015"><div class="sub">문의 ID Q-015 · 2026-11-06 · 채널 앱</div><h1>무통장 입금 기한</h1><p>무통장 입금을 선택했는데 입금 기한이 언제까지인가요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-016"><div class="sub">문의 ID Q-016 · 2026-11-07 · 채널 웹</div><h1>재입고 예정이 있나요</h1><p>품절된 무선 청소기 필터가 언제 다시 들어오나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-017"><div class="sub">문의 ID Q-017 · 2026-11-07 · 채널 앱</div><h1>주소를 바꾸고 싶어요</h1><p>기본 배송지를 새 주소로 바꾸는 메뉴를 못 찾겠습니다.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-018"><div class="sub">문의 ID Q-018 · 2026-11-07 · 채널 웹</div><h1>쿠폰 유효기간</h1><p>생일 쿠폰의 유효기간이 지났는데 다시 받을 수 있나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-019"><div class="sub">문의 ID Q-019 · 2026-11-08 · 채널 웹</div><h1>내일까지 꼭 받아야 해요</h1><p>선물로 보낼 물건이라 내일까지 받지 못하면 곤란합니다. 내일 도착한다고 확실히 약속해 주실 수 있나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-020"><div class="sub">문의 ID Q-020 · 2026-11-08 · 채널 앱</div><h1>불량품이 왔어요</h1><p>받은 텀블러 뚜껑에 금이 가 있습니다. 새 상품으로 교환해 주세요.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-021"><div class="sub">문의 ID Q-021 · 2026-11-08 · 채널 웹</div><h1>적립금으로 결제가 안 돼요</h1><p>적립금 5,000원이 있는데 결제 화면에서 쓸 수 없다고 나옵니다.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-022"><div class="sub">문의 ID Q-022 · 2026-11-09 · 채널 앱</div><h1>구성품 문의</h1><p>캠핑 의자 세트에 수납 가방도 들어 있나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-023"><div class="sub">문의 ID Q-023 · 2026-11-09 · 채널 웹</div><h1>아이디가 두 개예요</h1><p>예전에 만든 계정과 지금 계정을 하나로 합칠 수 있나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-024"><div class="sub">문의 ID Q-024 · 2026-11-09 · 채널 앱</div><h1>첫 구매 쿠폰이 없어요</h1><p>회원 가입을 했는데 첫 구매 쿠폰이 쿠폰함에 없습니다.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-025"><div class="sub">문의 ID Q-025 · 2026-11-10 · 채널 앱</div><h1>부분 배송인지 궁금해요</h1><p>세 가지를 주문했는데 하나만 왔습니다. 나머지는 따로 오는 건가요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-026"><div class="sub">문의 ID Q-026 · 2026-11-10 · 채널 웹</div><h1>반품했는데 환불이 안 됐어요</h1><p>지난주에 반품 상품이 회수됐다고 나오는데 아직 환불 문자가 없습니다.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-027"><div class="sub">문의 ID Q-027 · 2026-11-10 · 채널 앱</div><h1>피해를 보상해 주세요</h1><p>결제 오류 때문에 다른 곳에서 더 비싸게 샀습니다. 차액을 보상해 주시는 거죠?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-028"><div class="sub">문의 ID Q-028 · 2026-11-11 · 채널 웹</div><h1>원산지 표시</h1><p>상품 페이지와 상자에 적힌 원산지가 다릅니다. 어느 쪽이 맞나요?</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-029"><div class="sub">문의 ID Q-029 · 2026-11-11 · 채널 앱</div><h1>로그인하면 바로 튕겨요</h1><p>앱을 업데이트한 뒤 로그인하면 첫 화면으로 돌아갑니다.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section><section class="card view" id="Q-030"><div class="sub">문의 ID Q-030 · 2026-11-11 · 채널 웹</div><h1>적립 이벤트 포인트</h1><p>리뷰 작성 이벤트 포인트가 아직 들어오지 않았습니다.</p>
+<h2>답변</h2><textarea disabled rows="3" style="width:100%;font:inherit" placeholder="답변 등록은 실습에서 쓰지 않습니다(비활성)."></textarea>
+<p><button class="btn" disabled>답변 등록(비활성)</button> <a class="btn ghost" href="#">목록으로</a></p></section>
+</main>
+<footer>실습용 가상 자료 — 마소그룹과 계열사 · 상품 · 수치 · 고객은 실습을 위해 만든 가상 자료입니다(공개 사이트 · 쇼핑몰 · 공공 데이터 · 제품 화면은 실제). · © MASO CAMPUS 실습용 · W04-1</footer>
+<script>
+var S=(function(){var P='maso_aside_';return{get:function(k,d){try{var v=localStorage.getItem(P+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},
+  set:function(k,v){try{localStorage.setItem(P+k,JSON.stringify(v));return true;}catch(e){return false;}}};})();
+function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function msg(el,t,warn){if(!el)return;el.textContent=t;el.className='vmsg'+(warn?' warn':'');}
+function now(){var d=new Date();function p(n){return(n<10?'0':'')+n;}return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());}
+function today(){return now().slice(0,10);}
+function pad(n,w){n=String(n);while(n.length<w)n='0'+n;return n;}
+function askBox(box,text,onYes){box.innerHTML='<b>'+esc(text)+'</b> <button type="button" class="btn sm" data-yes>확정</button> <button type="button" class="btn sm ghost" data-no>취소</button>';
+  box.classList.add('on');box.querySelector('[data-yes]').onclick=function(){box.classList.remove('on');box.innerHTML='';onYes();};
+  box.querySelector('[data-no]').onclick=function(){box.classList.remove('on');box.innerHTML='';};}
+(function(){
+  function route(){var h=decodeURIComponent(location.hash.slice(1));var vs=document.querySelectorAll('.view');var any=false;
+    vs.forEach(function(v){var on=(v.id===h);v.classList.toggle('on',on);if(on)any=true;});
+    var home=document.getElementById('home');if(home)home.classList.toggle('on',!any);
+    var t=(!any&&h)?document.getElementById(h):null;
+    if(t){t.scrollIntoView();}else{window.scrollTo(0,0);}
+    document.dispatchEvent(new CustomEvent('vroute',{detail:h}));}
+  window.addEventListener('hashchange',route);route();
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();
+    msg(document.getElementById('vmsg-global'),'실습 웹 환경에서는 바깥 주소로 이동하지 않습니다.',true);});});
+  document.querySelectorAll('[data-off]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();
+    var m=b.getAttribute('data-msg-at');m=m?document.getElementById(m):document.getElementById('vmsg-global');msg(m,b.getAttribute('data-off'),true);});});
+  document.querySelectorAll('form[data-virtual]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();
+    var out=f.querySelector('.vmsg');var vals=[];var miss=false;
+    f.querySelectorAll('[name]').forEach(function(x){if(x.required&&!x.value)miss=true;vals.push(x.name+' '+(x.value||'—'));});
+    if(miss){msg(out,'꼭 넣어야 하는 칸이 비어 있습니다.',true);return;}
+    msg(out,(f.getAttribute('data-virtual')||'접수 완료(가상)')+' — '+vals.join(' · '));
+    document.dispatchEvent(new CustomEvent('vsubmit',{detail:{form:f.id,vals:vals}}));});});
+})();
+
+</script>
+</body></html>

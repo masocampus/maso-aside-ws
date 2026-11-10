@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>마소그룹 사내 포털 — 접수 확인</title>
+<!-- 실습용 가상 자료 — 마소그룹과 계열사 · 상품 · 수치 · 고객은 실습을 위해 만든 가상 자료입니다(공개 사이트 · 쇼핑몰 · 공공 데이터 · 제품 화면은 실제). 페이지 W01-3 · 실습 웹 환경 공통 틀 v1.1(M09) -->
+<style>
+:root{--c:#14213d;--a:#1f5eff;--ink:#1d2433;--mute:#5b6475;--line:#d9dee7;--bg:#f6f7fa}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Malgun Gothic","맑은 고딕","Noto Sans KR",sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.6}
+.vband{background:#ffcf33;color:#14213d;font-size:13px;font-weight:700;padding:6px 20px;display:flex;justify-content:space-between;gap:12px}
+header.site{background:var(--c);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+header.site .brand{font-size:19px;font-weight:800;letter-spacing:-.3px}
+header.site nav{display:flex;gap:4px;flex-wrap:wrap}
+header.site nav a{color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-size:14px;opacity:.85}
+header.site nav a.on,header.site nav a:hover{background:rgba(255,255,255,.16);opacity:1}
+header.site .login{margin-left:auto;font-size:13px;opacity:.8;border:1px solid rgba(255,255,255,.5);border-radius:6px;padding:4px 10px;background:transparent;color:#fff;cursor:not-allowed}
+main{max-width:1000px;margin:24px auto;padding:0 18px}
+section.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin-bottom:18px}
+h1{font-size:22px;margin:0 0 6px}h2{font-size:17px;margin:0 0 12px}
+.sub{color:var(--mute);font-size:14px;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:8px 8px;text-align:left;vertical-align:top}
+th{background:#eef1f6;font-weight:700}
+td.num,th.num{text-align:right}
+a{color:var(--a)}
+.menus{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.menu{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff;text-decoration:none;color:inherit}
+.menu b{color:var(--a);display:block;margin-bottom:4px}.menu span{color:var(--mute);font-size:13px}
+.menu.off{opacity:.55}
+.btn{display:inline-block;background:var(--a);color:#fff;border:0;border-radius:6px;padding:9px 16px;font-size:14px;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn.sm{padding:4px 10px;font-size:13px}
+.ghost{background:#fff;color:var(--a);border:1px solid var(--a)}
+.btn[disabled]{background:#c9ced8;color:#fff;cursor:not-allowed;border:0}
+.vmsg{margin-top:12px;font-weight:700;color:#0f7b45;min-height:1.4em}
+.vmsg.warn{color:#b42318}
+.view{display:none}.view.on{display:block}
+.plan{border-left:4px solid var(--a);background:#fff;padding:12px 16px;border-radius:6px}
+form.f{display:grid;grid-template-columns:150px 1fr;gap:10px 14px;align-items:center;max-width:640px}
+form.f label{font-weight:700;font-size:14px}
+form.f input,form.f select,form.f textarea{font:inherit;padding:7px 9px;border:1px solid #b9c0cc;border-radius:6px;width:100%}
+form.f .act{grid-column:2}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tabs a{padding:6px 12px;border:1px solid var(--line);border-radius:6px;text-decoration:none;background:#fff}
+.ok{color:#0f7b45;font-weight:700}.bad{color:#b42318;font-weight:700}.muted{color:var(--mute)}
+.confirm{margin-top:8px;padding:10px 12px;border:1px solid #f0b4ae;background:#fff5f4;border-radius:8px;display:none}
+.confirm.on{display:block}
+.kv td:first-child{width:170px;font-weight:700;background:#f7f8fb}
+.note{font-size:13px;color:var(--mute)}
+.pill{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;background:#eef1f6;margin-left:6px}
+footer{max-width:1000px;margin:0 auto 28px;padding:0 18px;color:var(--mute);font-size:12.5px}
+@media (max-width:640px){.menus{grid-template-columns:1fr}header.site{gap:12px}form.f{grid-template-columns:1fr}form.f .act{grid-column:1}}
+</style></head>
+<body>
+<div class="vband"><span>실습용 가상 페이지 · W01-3</span><span>실제 회사 · 사람 · 수치가 아닙니다</span></div>
+<header class="site"><span class="brand">마소그룹 사내 포털</span><nav><a href="W01-1.html">홈 · 공지</a><a href="W01-2.html">비품 신청</a><a href="W01-3.html" class="on">접수 확인</a></nav>
+<button class="login" data-off="실습에서는 로그인하지 않습니다. 로그인은 사람이 하는 일입니다.">로그인</button></header>
+<main><div id="vmsg-global" class="vmsg"></div>
+<section class="card"><h1>접수 확인</h1><div class="sub">신청한 비품의 접수 번호와 신청 내용을 확인합니다. 접수 내용은 이 브라우저에만 저장되는 가상 기록입니다.</div><div id="latest"></div></section>
+<section class="card"><h2>접수 내역</h2><table id="hist"><thead><tr><th>접수 번호</th><th>부서</th><th>품목</th><th class=num>수량</th><th>사유</th><th>접수 시각</th></tr></thead><tbody></tbody></table>
+<p><button class="btn sm ghost" type="button" id="clear">실습 기록 지우기</button></p><div class="confirm" id="clear-box"></div></section>
+</main>
+<footer>실습용 가상 자료 — 마소그룹과 계열사 · 상품 · 수치 · 고객은 실습을 위해 만든 가상 자료입니다(공개 사이트 · 쇼핑몰 · 공공 데이터 · 제품 화면은 실제). · © MASO CAMPUS 실습용 · W01-3</footer>
+<script>
+var S=(function(){var P='maso_aside_';return{get:function(k,d){try{var v=localStorage.getItem(P+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},
+  set:function(k,v){try{localStorage.setItem(P+k,JSON.stringify(v));return true;}catch(e){return false;}}};})();
+function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function msg(el,t,warn){if(!el)return;el.textContent=t;el.className='vmsg'+(warn?' warn':'');}
+function now(){var d=new Date();function p(n){return(n<10?'0':'')+n;}return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());}
+function today(){return now().slice(0,10);}
+function pad(n,w){n=String(n);while(n.length<w)n='0'+n;return n;}
+function askBox(box,text,onYes){box.innerHTML='<b>'+esc(text)+'</b> <button type="button" class="btn sm" data-yes>확정</button> <button type="button" class="btn sm ghost" data-no>취소</button>';
+  box.classList.add('on');box.querySelector('[data-yes]').onclick=function(){box.classList.remove('on');box.innerHTML='';onYes();};
+  box.querySelector('[data-no]').onclick=function(){box.classList.remove('on');box.innerHTML='';};}
+(function(){
+  function route(){var h=decodeURIComponent(location.hash.slice(1));var vs=document.querySelectorAll('.view');var any=false;
+    vs.forEach(function(v){var on=(v.id===h);v.classList.toggle('on',on);if(on)any=true;});
+    var home=document.getElementById('home');if(home)home.classList.toggle('on',!any);
+    var t=(!any&&h)?document.getElementById(h):null;
+    if(t){t.scrollIntoView();}else{window.scrollTo(0,0);}
+    document.dispatchEvent(new CustomEvent('vroute',{detail:h}));}
+  window.addEventListener('hashchange',route);route();
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();
+    msg(document.getElementById('vmsg-global'),'실습 웹 환경에서는 바깥 주소로 이동하지 않습니다.',true);});});
+  document.querySelectorAll('[data-off]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();
+    var m=b.getAttribute('data-msg-at');m=m?document.getElementById(m):document.getElementById('vmsg-global');msg(m,b.getAttribute('data-off'),true);});});
+  document.querySelectorAll('form[data-virtual]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();
+    var out=f.querySelector('.vmsg');var vals=[];var miss=false;
+    f.querySelectorAll('[name]').forEach(function(x){if(x.required&&!x.value)miss=true;vals.push(x.name+' '+(x.value||'—'));});
+    if(miss){msg(out,'꼭 넣어야 하는 칸이 비어 있습니다.',true);return;}
+    msg(out,(f.getAttribute('data-virtual')||'접수 완료(가상)')+' — '+vals.join(' · '));
+    document.dispatchEvent(new CustomEvent('vsubmit',{detail:{form:f.id,vals:vals}}));});});
+})();
+
+
+(function(){var q=new URLSearchParams(location.search);var list=S.get('w01',[]);var last=null;
+  if(q.get('접수 번호')){last={};['접수 번호','부서','품목','수량','사유','접수 시각'].forEach(function(k){last[k]=q.get(k)||'';});}
+  else if(list.length){last=list[list.length-1];}
+  var L=document.getElementById('latest');
+  if(last){L.innerHTML='<p class="ok">접수 완료(가상) — 접수 번호 '+esc(last['접수 번호'])+'</p><table class="kv" id="latest-table"><tbody>'+
+    ['부서','품목','수량','사유','접수 시각'].map(function(k){return'<tr><td>'+k+'</td><td>'+esc(last[k])+'</td></tr>';}).join('')+'</tbody></table>';}
+  else{L.innerHTML='<p class="muted">아직 접수한 신청이 없습니다. 비품 신청 화면에서 신청하면 여기에 보입니다.</p>';}
+  function draw(){var tb=document.querySelector('#hist tbody');var l=S.get('w01',[]);
+    tb.innerHTML=l.length?l.map(function(r){return'<tr><td>'+esc(r['접수 번호'])+'</td><td>'+esc(r['부서'])+'</td><td>'+esc(r['품목'])+'</td><td class=num>'+esc(r['수량'])+'</td><td>'+esc(r['사유'])+'</td><td>'+esc(r['접수 시각'])+'</td></tr>';}).join(''):'<tr><td colspan="6" class="muted">기록 없음</td></tr>';}
+  draw();document.getElementById('clear').onclick=function(){askBox(document.getElementById('clear-box'),'이 브라우저의 접수 기록을 모두 지울까요?',function(){S.set('w01',[]);draw();});};})();
+</script>
+</body></html>

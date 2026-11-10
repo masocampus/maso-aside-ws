@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>마소마켓 — 마이페이지</title>
+<!-- 실습용 가상 자료 — 마소그룹과 계열사 · 상품 · 수치 · 고객은 실습을 위해 만든 가상 자료입니다(공개 사이트 · 쇼핑몰 · 공공 데이터 · 제품 화면은 실제). 페이지 W05-3 · 실습 웹 환경 공통 틀 v1.1(M09) -->
+<style>
+:root{--c:#b8321f;--a:#ff6a3d;--ink:#1d2433;--mute:#5b6475;--line:#d9dee7;--bg:#f6f7fa}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Malgun Gothic","맑은 고딕","Noto Sans KR",sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.6}
+.vband{background:#ffcf33;color:#14213d;font-size:13px;font-weight:700;padding:6px 20px;display:flex;justify-content:space-between;gap:12px}
+header.site{background:var(--c);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+header.site .brand{font-size:19px;font-weight:800;letter-spacing:-.3px}
+header.site nav{display:flex;gap:4px;flex-wrap:wrap}
+header.site nav a{color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-size:14px;opacity:.85}
+header.site nav a.on,header.site nav a:hover{background:rgba(255,255,255,.16);opacity:1}
+header.site .login{margin-left:auto;font-size:13px;opacity:.8;border:1px solid rgba(255,255,255,.5);border-radius:6px;padding:4px 10px;background:transparent;color:#fff;cursor:not-allowed}
+main{max-width:1000px;margin:24px auto;padding:0 18px}
+section.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin-bottom:18px}
+h1{font-size:22px;margin:0 0 6px}h2{font-size:17px;margin:0 0 12px}
+.sub{color:var(--mute);font-size:14px;margin-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid var(--line);padding:8px 8px;text-align:left;vertical-align:top}
+th{background:#eef1f6;font-weight:700}
+td.num,th.num{text-align:right}
+a{color:var(--a)}
+.menus{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.menu{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff;text-decoration:none;color:inherit}
+.menu b{color:var(--a);display:block;margin-bottom:4px}.menu span{color:var(--mute);font-size:13px}
+.menu.off{opacity:.55}
+.btn{display:inline-block;background:var(--a);color:#fff;border:0;border-radius:6px;padding:9px 16px;font-size:14px;cursor:pointer;text-decoration:none;font-family:inherit}
+.btn.sm{padding:4px 10px;font-size:13px}
+.ghost{background:#fff;color:var(--a);border:1px solid var(--a)}
+.btn[disabled]{background:#c9ced8;color:#fff;cursor:not-allowed;border:0}
+.vmsg{margin-top:12px;font-weight:700;color:#0f7b45;min-height:1.4em}
+.vmsg.warn{color:#b42318}
+.view{display:none}.view.on{display:block}
+.plan{border-left:4px solid var(--a);background:#fff;padding:12px 16px;border-radius:6px}
+form.f{display:grid;grid-template-columns:150px 1fr;gap:10px 14px;align-items:center;max-width:640px}
+form.f label{font-weight:700;font-size:14px}
+form.f input,form.f select,form.f textarea{font:inherit;padding:7px 9px;border:1px solid #b9c0cc;border-radius:6px;width:100%}
+form.f .act{grid-column:2}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tabs a{padding:6px 12px;border:1px solid var(--line);border-radius:6px;text-decoration:none;background:#fff}
+.ok{color:#0f7b45;font-weight:700}.bad{color:#b42318;font-weight:700}.muted{color:var(--mute)}
+.confirm{margin-top:8px;padding:10px 12px;border:1px solid #f0b4ae;background:#fff5f4;border-radius:8px;display:none}
+.confirm.on{display:block}
+.kv td:first-child{width:170px;font-weight:700;background:#f7f8fb}
+.note{font-size:13px;color:var(--mute)}
+.pill{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;background:#eef1f6;margin-left:6px}
+footer{max-width:1000px;margin:0 auto 28px;padding:0 18px;color:var(--mute);font-size:12.5px}
+@media (max-width:640px){.menus{grid-template-columns:1fr}header.site{gap:12px}form.f{grid-template-columns:1fr}form.f .act{grid-column:1}}
+</style></head>
+<body>
+<div class="vband"><span>실습용 가상 페이지 · W05-3</span><span>실제 회사 · 사람 · 수치가 아닙니다</span></div>
+<header class="site"><span class="brand">마소마켓</span><nav><a href="W05-1.html">상품 목록</a><a href="W05-2.html">상품 상세</a><a href="W05-3.html" class="on">마이페이지</a><a href="W05-4.html">경쟁 상품</a></nav>
+<button class="login" data-off="실습에서는 로그인하지 않습니다. 로그인은 사람이 하는 일입니다.">로그인</button></header>
+<main><div id="vmsg-global" class="vmsg"></div>
+<section class="card"><h1>마이페이지</h1><div class="sub">가상 회원의 마이페이지입니다. 이름 · 주소 · 연락처는 모두 가상이며, 결과 표에는 넣지 않는 연습을 합니다.</div>
+<table class="kv" id="member"><tbody><tr><td>이름</td><td>홍길동(가상)</td></tr><tr><td>연락처</td><td>010-0000-5678(가상)</td></tr><tr><td>주소</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td></tr><tr><td>회원 등급</td><td>일반(가상)</td></tr></tbody></table>
+<p class="note">화면 기준일 2026-11-20(가상) — 남은 날은 이 날짜로 셉니다.</p><div class="tabs"><a href="#">주문 목록</a><a href="#cart">장바구니</a><a href="#returns">반품 · 교환 안내</a></div></section>
+<div class="view on" id="home"><section class="card"><h2>주문 목록 — 최근 12건</h2><table id="orders"><thead><tr><th>주문일</th><th>상품</th><th class=num>금액</th><th>상태</th><th>주문번호</th><th>받는 사람</th><th>주소(가상)</th><th>반품 마감일</th></tr></thead><tbody><tr><td>2026-11-02</td><td>극세사 수건 10장</td><td class=num>19,800</td><td>배송 완료</td><td>MM20261102-0417</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>2026-11-12</td></tr><tr><td>2026-11-05</td><td>유리 밀폐 용기 6종 세트</td><td class=num>24,900</td><td>배송 완료</td><td>MM20261105-0912</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>2026-11-22</td></tr><tr><td>2026-11-08</td><td>욕실 슬리퍼</td><td class=num>8,900</td><td>배송 완료</td><td>MM20261108-1033</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>2026-11-23</td></tr><tr><td>2026-11-10</td><td>주방 세제 리필 1.2L</td><td class=num>5,900</td><td>배송 완료</td><td>MM20261110-1220</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>2026-11-27</td></tr><tr><td>2026-11-12</td><td>LED 무드등</td><td class=num>21,500</td><td>배송 중</td><td>MM20261112-1501</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>—</td></tr><tr><td>2026-11-14</td><td>보온 도시락 2단</td><td class=num>27,800</td><td>배송 완료</td><td>MM20261114-1645</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>2026-11-30</td></tr><tr><td>2026-11-16</td><td>고무장갑 5켤레</td><td class=num>6,500</td><td>주문 접수</td><td>MM20261116-1802</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>—</td></tr><tr><td>2026-11-18</td><td>섬유 탈취제 500ml</td><td class=num>7,400</td><td>배송 준비 중</td><td>MM20261118-1955</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>—</td></tr><tr><td>2026-10-21</td><td>전기 주전자 1.7L</td><td class=num>34,900</td><td>배송 완료</td><td>MM20261021-0308</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>2026-11-04</td></tr><tr><td>2026-10-25</td><td>빨래 건조대</td><td class=num>29,900</td><td>배송 완료</td><td>MM20261025-0521</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>2026-11-08</td></tr><tr><td>2026-10-28</td><td>원목 도마</td><td class=num>18,900</td><td>배송 완료</td><td>MM20261028-0744</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>2026-11-11</td></tr><tr><td>2026-10-30</td><td>멀티탭 4구</td><td class=num>11,900</td><td>배송 완료</td><td>MM20261030-0950</td><td>홍길동(가상)</td><td>서울특별시 가상구 마소로 12, 101동 1001호(가상)</td><td>2026-11-13</td></tr></tbody></table>
+<p><button class="btn ghost" data-off="실습에서는 주문을 취소하지 않습니다." data-msg-at="m-orders">주문 취소</button></p><div class="vmsg" id="m-orders"></div></section></div>
+<div class="view" id="cart"><section class="card"><h2>장바구니 — 3개</h2><table id="cart"><thead><tr><th>상품</th><th class=num>가격(원)</th><th class=num>수량</th><th>배송</th><th>반품</th></tr></thead><tbody><tr><td>스테인리스 텀블러 500ml</td><td class=num>16,900</td><td class=num>1</td><td>무료 배송 · 이틀 안 도착</td><td>배송 완료 후 7일 · 단순 변심 왕복 6,000원</td></tr><tr><td>실리콘 주방 집게</td><td class=num>6,900</td><td class=num>2</td><td>3,000원(2만 원 이상 무료) · 사흘 안 도착</td><td>배송 완료 후 7일 · 단순 변심 왕복 6,000원</td></tr><tr><td>섬유 탈취제 500ml</td><td class=num>7,400</td><td class=num>1</td><td>3,000원(2만 원 이상 무료) · 사흘 안 도착</td><td>개봉하면 반품 불가(불량 제외)</td></tr></tbody></table><p>합계 38,100원(배송비 별도)</p>
+<p><button class="btn" data-off="실습에서는 주문하지 않습니다. 결제는 사람이 하는 일입니다." data-msg-at="m-cart">주문하기</button></p><div class="vmsg" id="m-cart"></div></section></div>
+<div class="view" id="returns"><section class="card"><h2>반품 · 교환 안내</h2><ul><li>반품 · 교환은 주문 목록의 &#x27;반품 마감일&#x27;까지 신청합니다. 마감일이 없는 주문은 아직 배송이 끝나지 않은 주문입니다.</li><li>단순 변심 반품 배송비는 왕복 6,000원이며, 상품 불량 · 잘못 온 상품은 무료입니다.</li><li>포장을 뜯어 사용한 상품과 개봉한 위생용품(고무장갑 · 탈취제 등)은 반품할 수 없습니다(불량 제외).</li><li>교환은 같은 상품의 다른 옵션으로만 할 수 있고 배송비는 왕복 6,000원입니다.</li></ul>
+<h2>배송 완료 주문의 반품 마감일</h2><table id="returns-table"><thead><tr><th>주문일</th><th>상품</th><th>반품 마감일</th><th>화면 기준일에서</th><th>단순 변심 반품 비용</th><th>조건</th></tr></thead><tbody><tr><td>2026-11-02</td><td>극세사 수건 10장</td><td>2026-11-12</td><td>마감 지남</td><td>왕복 6,000원(불량 · 오배송 무료)</td><td>사용하지 않은 상품만(불량 제외)</td></tr><tr><td>2026-11-05</td><td>유리 밀폐 용기 6종 세트</td><td>2026-11-22</td><td>2일 남음</td><td>왕복 6,000원(불량 · 오배송 무료)</td><td>사용하지 않은 상품만(불량 제외)</td></tr><tr><td>2026-11-08</td><td>욕실 슬리퍼</td><td>2026-11-23</td><td>3일 남음</td><td>왕복 6,000원(불량 · 오배송 무료)</td><td>사용하지 않은 상품만(불량 제외)</td></tr><tr><td>2026-11-10</td><td>주방 세제 리필 1.2L</td><td>2026-11-27</td><td>7일 남음</td><td>왕복 6,000원(불량 · 오배송 무료)</td><td>사용하지 않은 상품만(불량 제외)</td></tr><tr><td>2026-11-14</td><td>보온 도시락 2단</td><td>2026-11-30</td><td>10일 남음</td><td>왕복 6,000원(불량 · 오배송 무료)</td><td>사용하지 않은 상품만(불량 제외)</td></tr><tr><td>2026-10-21</td><td>전기 주전자 1.7L</td><td>2026-11-04</td><td>마감 지남</td><td>왕복 6,000원(불량 · 오배송 무료)</td><td>사용하지 않은 상품만(불량 제외)</td></tr><tr><td>2026-10-25</td><td>빨래 건조대</td><td>2026-11-08</td><td>마감 지남</td><td>왕복 6,000원(불량 · 오배송 무료)</td><td>사용하지 않은 상품만(불량 제외)</td></tr><tr><td>2026-10-28</td><td>원목 도마</td><td>2026-11-11</td><td>마감 지남</td><td>왕복 6,000원(불량 · 오배송 무료)</td><td>사용하지 않은 상품만(불량 제외)</td></tr><tr><td>2026-10-30</td><td>멀티탭 4구</td><td>2026-11-13</td><td>마감 지남</td><td>왕복 6,000원(불량 · 오배송 무료)</td><td>사용하지 않은 상품만(불량 제외)</td></tr></tbody></table>
+<p><button class="btn ghost" data-off="실습에서는 반품을 신청하지 않습니다." data-msg-at="m-ret">반품 신청</button></p><div class="vmsg" id="m-ret"></div></section></div>
+</main>
+<footer>실습용 가상 자료 — 마소그룹과 계열사 · 상품 · 수치 · 고객은 실습을 위해 만든 가상 자료입니다(공개 사이트 · 쇼핑몰 · 공공 데이터 · 제품 화면은 실제). · © MASO CAMPUS 실습용 · W05-3</footer>
+<script>
+var S=(function(){var P='maso_aside_';return{get:function(k,d){try{var v=localStorage.getItem(P+k);return v===null?d:JSON.parse(v);}catch(e){return d;}},
+  set:function(k,v){try{localStorage.setItem(P+k,JSON.stringify(v));return true;}catch(e){return false;}}};})();
+function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function msg(el,t,warn){if(!el)return;el.textContent=t;el.className='vmsg'+(warn?' warn':'');}
+function now(){var d=new Date();function p(n){return(n<10?'0':'')+n;}return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());}
+function today(){return now().slice(0,10);}
+function pad(n,w){n=String(n);while(n.length<w)n='0'+n;return n;}
+function askBox(box,text,onYes){box.innerHTML='<b>'+esc(text)+'</b> <button type="button" class="btn sm" data-yes>확정</button> <button type="button" class="btn sm ghost" data-no>취소</button>';
+  box.classList.add('on');box.querySelector('[data-yes]').onclick=function(){box.classList.remove('on');box.innerHTML='';onYes();};
+  box.querySelector('[data-no]').onclick=function(){box.classList.remove('on');box.innerHTML='';};}
+(function(){
+  function route(){var h=decodeURIComponent(location.hash.slice(1));var vs=document.querySelectorAll('.view');var any=false;
+    vs.forEach(function(v){var on=(v.id===h);v.classList.toggle('on',on);if(on)any=true;});
+    var home=document.getElementById('home');if(home)home.classList.toggle('on',!any);
+    var t=(!any&&h)?document.getElementById(h):null;
+    if(t){t.scrollIntoView();}else{window.scrollTo(0,0);}
+    document.dispatchEvent(new CustomEvent('vroute',{detail:h}));}
+  window.addEventListener('hashchange',route);route();
+  document.querySelectorAll('a[href^="http"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();
+    msg(document.getElementById('vmsg-global'),'실습 웹 환경에서는 바깥 주소로 이동하지 않습니다.',true);});});
+  document.querySelectorAll('[data-off]').forEach(function(b){b.addEventListener('click',function(e){e.preventDefault();
+    var m=b.getAttribute('data-msg-at');m=m?document.getElementById(m):document.getElementById('vmsg-global');msg(m,b.getAttribute('data-off'),true);});});
+  document.querySelectorAll('form[data-virtual]').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();
+    var out=f.querySelector('.vmsg');var vals=[];var miss=false;
+    f.querySelectorAll('[name]').forEach(function(x){if(x.required&&!x.value)miss=true;vals.push(x.name+' '+(x.value||'—'));});
+    if(miss){msg(out,'꼭 넣어야 하는 칸이 비어 있습니다.',true);return;}
+    msg(out,(f.getAttribute('data-virtual')||'접수 완료(가상)')+' — '+vals.join(' · '));
+    document.dispatchEvent(new CustomEvent('vsubmit',{detail:{form:f.id,vals:vals}}));});});
+})();
+
+</script>
+</body></html>

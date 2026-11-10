@@ -2,7 +2,7 @@
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>마소마켓 — 마이페이지</title>
-<!-- 실습용 가상 자료 — 마소그룹과 계열사 · 상품 · 수치 · 고객은 실습을 위해 만든 가상 자료입니다(공개 사이트 · 쇼핑몰 · 공공 데이터 · 제품 화면은 실제). 페이지 W05-3 · 실습 웹 환경 공통 틀 v1.1(M09) -->
+<!-- 실습용 가상 자료 — 마소그룹과 계열사 · 상품 · 수치 · 고객은 실습을 위해 만든 가상 자료입니다(공개 사이트 · 쇼핑몰 · 공공 데이터 · 제품 화면은 실제). 페이지 W05-3 · 실습 웹 환경 공통 틀 v1.2(M13) -->
 <style>
 :root{--c:#b8321f;--a:#ff6a3d;--ink:#1d2433;--mute:#5b6475;--line:#d9dee7;--bg:#f6f7fa}
 *{box-sizing:border-box}
@@ -81,7 +81,7 @@ function askBox(box,text,onYes){box.innerHTML='<b>'+esc(text)+'</b> <button type
 (function(){
   function route(){var h=decodeURIComponent(location.hash.slice(1));var vs=document.querySelectorAll('.view');var any=false;
     vs.forEach(function(v){var on=(v.id===h);v.classList.toggle('on',on);if(on)any=true;});
-    var home=document.getElementById('home');if(home)home.classList.toggle('on',!any);
+    var home=document.getElementById('home');if(home)home.classList.toggle('on',!any||h==='home');
     var t=(!any&&h)?document.getElementById(h):null;
     if(t){t.scrollIntoView();}else{window.scrollTo(0,0);}
     document.dispatchEvent(new CustomEvent('vroute',{detail:h}));}
